@@ -1,13 +1,20 @@
-import './App.css';
+import React from 'react';
+import { Helmet } from 'react-helmet';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello Word</h1>
-      </header>
-    </div>
-  );
+import Navbar from './UI/Navbar/Navbar';
+
+
+class App extends React.Component {
+
+  render() {
+    return (
+      <div>
+        <Helmet>
+          <style>{'body { background-color: #424242; }'}</style>
+        </Helmet>
+      </div>
+    )
+  }
 }
 
 export default App;
