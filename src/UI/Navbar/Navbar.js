@@ -9,7 +9,7 @@ const Navbar = () => {
         <div className="Navbar">
             <h2 className="Navbar-title">Blog</h2>
             <DropButtonGroup/>
-            <button></button>
+            <button className="Navbar-button"> USER </button>
         </div>
     )
 }
