@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 import DropdownsList from '../DropdownsList/DropdownsList';
 
@@ -14,6 +15,8 @@ function BasicNavbar() {
                     <Nav className="ms-5">
                         <DropdownsList/>
                         <DropdownsList/>
+                        <Form.Control type="email" placeholder="Name or Id" />
+                        <Button variant="dark">Dark</Button> 
                     </Nav>
                 </Navbar.Collapse>
                 <Button variant="dark">Dark</Button> 
