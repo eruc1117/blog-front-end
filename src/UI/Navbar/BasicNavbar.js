@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
 
 import DropdownsList from '../DropdownsList/DropdownsList';
 
@@ -13,13 +14,16 @@ function BasicNavbar() {
                 <Navbar.Brand href="#home" className="fs-2 my-0 py-0">Eruc</Navbar.Brand>
                 <Navbar.Collapse id="navbar-nav" className='h-100'>
                     <Nav className="ms-5">
-                        <DropdownsList/>
-                        <DropdownsList/>
+                        <DropdownsList />
+                        <DropdownsList />
                         <Form.Control type="email" placeholder="Name or Id" />
-                        <Button variant="dark">Dark</Button> 
+                        <Button variant="dark">Dark</Button>
                     </Nav>
                 </Navbar.Collapse>
-                <Button variant="dark">Dark</Button> 
+                <div className='d-flex flex-row'>
+                    <Card body bg="dark" className='text-white'>This is some text within a card body.</Card>
+                    <Button variant="dark">Dark</Button>
+                </div>
             </Container>
         </Navbar>
     );
