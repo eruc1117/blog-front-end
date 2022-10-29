@@ -13,7 +13,7 @@ const DropdownsList = () => {
         >
             <NavDropdown.Item >Action</NavDropdown.Item>
             <NavDropdown.Item>
-                <Link to="test">Main Blog</Link>
+                <Link to={`/test`}>Main Blog</Link>
             </NavDropdown.Item>
         </NavDropdown>
     )
