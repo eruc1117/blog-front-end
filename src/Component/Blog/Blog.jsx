@@ -1,17 +1,32 @@
 import React from "react";
 
-import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import Article from "./Article/Article";
+import ArticleList from "./ArticleList/ArticleList";
+import NodeLeft from "./Note/NoteLeft";
+import NodeBottom from "./Note/NoteBottom";
+
 const Blog = () => {
     return (
-        <Card bg='dark' text='white' className='mx-auto mt-5' style={{ width: '70%' }}>
-            <Card.Body >
-                <Card.Title className='text-center mb-5'>Card Title</Card.Title>
-                <Card.Text className='text-center mt-5'>
-                    Some quick example text to build on the card title and make up the
-                    bulk of the card's content.
-                </Card.Text>
-            </Card.Body>
-        </Card>
+        <Container className="w-100 h-100">
+            <Row>
+                <Col>
+                    <ArticleList />
+                </Col>
+                <Col xs={6} >
+                    <Article />
+                </Col>
+                <Col>
+                    <NodeLeft />
+                </Col>
+            </Row>
+            <div className="mt-5">
+                <NodeBottom />
+            </div>
+        </Container>
     )
 }
 
