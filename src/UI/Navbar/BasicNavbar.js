@@ -11,18 +11,18 @@ function BasicNavbar() {
     return (
         <Navbar bg="dark" variant="dark">
             <Container className='mx-auto w-100'>
-                <Navbar.Brand href="/" className="fs-2 my-0 py-0">Eruc</Navbar.Brand>
+                <Navbar.Brand href="/" className="fs-2 my-0 py-0">Eruc Blog</Navbar.Brand>
                 <Navbar.Collapse id="navbar-nav" className='h-100'>
                     <Nav className="ms-5">
-                        <DropdownsList />
-                        <DropdownsList />
-                        <Form.Control type="email" placeholder="Name or Id" />
-                        <Button variant="dark">Dark</Button>
+                        <DropdownsList title={"article"}/>
+                        <DropdownsList title={"user"} />
+                        <Form.Control className='ms-5' type="email" placeholder="Name or Id" />
+                        <Button variant="dark">Search</Button>
                     </Nav>
                 </Navbar.Collapse>
                 <div className='d-flex flex-row'>
-                    <Card body bg="dark" className='text-white'>This is some text within a card body.</Card>
-                    <Button variant="dark">Dark</Button>
+                    <Card body bg="dark" className='text-white'>Login User Name or Null</Card>
+                    <Button variant="dark">login</Button>
                 </div>
             </Container>
         </Navbar>
