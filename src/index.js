@@ -7,9 +7,11 @@ import router from './router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
+// 如果把 NavBar 移到這裡？
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
+    <div>
         <RouterProvider router={router} />
-    </React.StrictMode>
+    </div>
 );
