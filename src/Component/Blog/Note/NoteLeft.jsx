@@ -1,15 +1,26 @@
 import Card from 'react-bootstrap/Card';
 
+import { useState } from 'react';
+import NoteBody from './NoteBody';
+import EditBody from './EditBody';
+import NodeBotton from './NoteBotton';
+
 const NodeLeft = () => {
+    const [edit, setEdit] = useState(false)
+
+    const editNote = () => {
+        setEdit(true)
+    }
+    const readNote = () => {
+        setEdit(false)
+    }
+
     return (
+        
         <Card bg='dark' text='white' className='mt-5 mx-auto w-100'>
-            <Card.Body >
-                <Card.Title className='text-center mb-5'>Card Title</Card.Title>
-                <Card.Text className='text-left mt-5'>
-                    Some quick example text to build on the card title and make up the
-                    bulk of the card's content.
-                </Card.Text>
-            </Card.Body>
+            <Card.Title className='text-center mt-3'>Note</Card.Title>
+            {edit ? <EditBody /> : <NoteBody />}
+            <NodeBotton editState={edit} onEditNote={editNote} onReadNote={readNote}/>
         </Card>
     )
 }
