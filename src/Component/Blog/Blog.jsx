@@ -10,6 +10,7 @@ import NodeLeft from "./Note/NoteLeft";
 
 const Blog = () => {
     const [buttomOrLeft, setButtomOrLeft] = useState("left")
+    const [artList, setArtList] = useState(true)
 
     if (false) {
         setButtomOrLeft("test")
@@ -18,9 +19,10 @@ const Blog = () => {
     return (
         <Container className="w-100 h-100">
             <Row>
+                {artList && 
                 <Col>
                     <ArticleList />
-                </Col>
+                </Col>}
                 <Col xs={buttomOrLeft === "left" ? 8 : 10} >
                     <Article />
                 </Col>
