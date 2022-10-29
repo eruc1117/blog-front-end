@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -17,7 +16,7 @@ const Blog = () => {
     }
 
     return (
-        <Container className="w-100 h-100">
+        <div className="w-75 h-100 mx-auto">
             <Row>
                 {artList && 
                 <Col>
@@ -35,7 +34,7 @@ const Blog = () => {
             {buttomOrLeft !== "left" && <div className="mt-5">
                 <NodeLeft />
             </div>}
-        </Container>
+        </div>
     )
 }
 
