@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import DropdownsList from '../DropdownsList/DropdownsList';
 
 function BasicNavbar() {
-    const [loginState, setLoginState] = useState(false)
+    const [loginState, setLoginState] = useState(true)
 
     return (
         <Navbar bg="dark" variant="dark">
