@@ -1,11 +1,11 @@
 import Card from 'react-bootstrap/Card';
 
-const NoteBody = () => {
+const NoteBody = (props) => {
+    const noteData =props.noteData
     return (
         <Card.Body >
             <Card.Text className='text-center'>
-                Some quick example text to build on the card title and make up the
-                bulk of the card's content.
+                {noteData.note}
             </Card.Text>
         </Card.Body>
     )

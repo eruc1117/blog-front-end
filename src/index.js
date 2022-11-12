@@ -1,17 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { RouterProvider } from "react-router-dom";
+import React from "react";
+import { createRoot } from 'react-dom/client';
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
 
-import router from './router';
+import Root from './routes/Root';
+import MainError from './ErrorPage/MainError'
+import MainBlog from "./routes/MainBlog/MainBlog";
+import User from "./routes/User/User";
+import Login from "./routes/Login/Login";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-// 如果把 NavBar 移到這裡？
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container); 
 root.render(
-    <div>
-        <RouterProvider router={router} />
-    </div>
-);
+  <BrowserRouter>
+  <Routes>
+      <Route path="/" element={<Root/>} 
+          errorElement={<MainError/>} />
+      <Route path="/article/:articleId" element={<MainBlog/>} />
+      <Route path="/user" element={<User/>} />
+      <Route path="/login" element={<Login/>} />
+  </Routes>
+  </BrowserRouter>
+  )
