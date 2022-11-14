@@ -58,6 +58,7 @@ const Blog = (props) => {
            });
      }, []);
 
+
     return (
         <div className="w-75 h-100 mx-auto">
             <div className=" mt-2 position-absolute top-10 start-10">
@@ -88,10 +89,15 @@ const Blog = (props) => {
                 </Col>
                 {buttomOrLeft === "left" &&
                     <Col>
-                        <NodeLeft noteData={noteData}/>
+                        <NodeLeft updateNote={setNoteData} noteData={noteData} artData={artData}/>
                     </Col>}
 
             </Row>
+            {buttomOrLeft !== "left" &&
+                    <Col>
+                        <NodeLeft noteData={noteData} artData={artData}/>
+                    </Col>}
+
         </div>
     )
 }
