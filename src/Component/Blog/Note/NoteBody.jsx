@@ -8,10 +8,12 @@ const NoteBody = (props) => {
     }, [props.noteData.note])
     return (
         <Card.Body>
+            <div className='w-75 mx-auto'>
              <Fragment>
-            <div dangerouslySetInnerHTML={ { __html: props.noteData.note}} >
+                <div dangerouslySetInnerHTML={ { __html: props.noteData.note}} >
+                </div>
+            </Fragment>
             </div>
-        </Fragment>
         </Card.Body>
     )
 }

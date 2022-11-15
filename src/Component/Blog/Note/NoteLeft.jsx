@@ -5,11 +5,14 @@ import NoteBody from './NoteBody';
 import EditBody from './EditBody';
 import NodeBotton from './NoteBotton';
 
-const NodeLeft = (props) => {
+const NoteLeft = (props) => {
+    const noteData = props.noteData
     const [edit, setEdit] = useState(false)
-    const [note, setNote] = useState("")
+    const [note, setNote] = useState(noteData.note)
     const updateNote = props.updateNote
+
     const writeNote = (text) => {
+        console.log(text)
         setNote(text)
     }
 
@@ -19,20 +22,18 @@ const NodeLeft = (props) => {
     const readNote = () => {
         setEdit(false)
     }
-    const noteData = props.noteData
 
     const articleId = props.artData.id
 
     const jsonBody = JSON.stringify({
-        user_id: 1,
+        reader_id: 1,
         article_id: articleId,
         note: note
     })
     const createNote = async () => {
         try {
-
             const requestOptions = {
-                method: "POST",
+                method: "PUT",
                 headers: {"Content-Type": "application/json"},
                 body: jsonBody
             }
@@ -50,9 +51,9 @@ const NodeLeft = (props) => {
         <Card bg='dark' text='white' className='mt-5 mx-auto w-100'>
             <Card.Title className='text-center mt-3'>Note</Card.Title>
             {edit ? <EditBody note={note} writeNote={writeNote}/> : <NoteBody noteData={noteData}/>}
-            <NodeBotton habdleOnClick={createNote} editState={edit} onEditNote={editNote} onReadNote={readNote} note={note}/>
+            <NodeBotton habdleOnClick={createNote} editState={edit} onEditNote={editNote} onReadNote={readNote} note={noteData.note}/>
         </Card>
     )
 }
 
-export default NodeLeft
+export default NoteLeft

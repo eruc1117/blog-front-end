@@ -14,7 +14,7 @@ const Blog = (props) => {
     const [artList, setArtList] = useState(true)
     const [articleEdit, setArticleEdit] = useState(false)
     const [artData, setArtData] = useState({})
-    const [noteData, setNoteData] = useState([])
+    const [noteData, setNoteData] = useState({})
 
     const hideArtList = () => {
         setArtList(false)
@@ -80,23 +80,18 @@ const Blog = (props) => {
                             <ArticleList />
                         </div>
                     </Col>}
-                <Col xs={buttomOrLeft === "left" ? 8 : 10} >
+                <Col xs={artList ? 10 : 12} >
                     {articleEdit ?
                         <ArticleEditor artData={artData}/> :
                         <Article artData={artData}/>
                     }
 
                 </Col>
-                {buttomOrLeft === "left" &&
-                    <Col>
-                        <NodeLeft updateNote={setNoteData} noteData={noteData} artData={artData}/>
-                    </Col>}
 
             </Row>
-            {buttomOrLeft !== "left" &&
-                    <Col>
-                        <NodeLeft noteData={noteData} artData={artData}/>
-                    </Col>}
+                <Col>
+                    <NodeLeft updateNote={setNoteData} noteData={noteData} artData={artData}/>
+                </Col>
 
         </div>
     )
