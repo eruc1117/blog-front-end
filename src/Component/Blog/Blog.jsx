@@ -10,11 +10,12 @@ import NodeLeft from "./Note/NoteLeft";
 import Button from 'react-bootstrap/Button';
 
 const Blog = (props) => {
-    const [buttomOrLeft, setButtomOrLeft] = useState("left")
     const [artList, setArtList] = useState(true)
     const [articleEdit, setArticleEdit] = useState(false)
     const [artData, setArtData] = useState({})
     const [noteData, setNoteData] = useState({})
+    const [userTitles, setUserTitles] = useState([])
+    const [createState, setCreateState] = useState(true)
 
     const hideArtList = () => {
         setArtList(false)
@@ -24,15 +25,18 @@ const Blog = (props) => {
     }
 
     const createArticle = () => {
+        setCreateState(true)
         setArticleEdit(true)
     }
     const editArticle = () => {
+        setCreateState(false)
         setArticleEdit(true)
     }
     const cancelEdit = () => {
         setArticleEdit(false)
     }
 
+    const authorId = artData.author_id
     const articleId = props.articleId
 
     useEffect(() => {
@@ -58,6 +62,18 @@ const Blog = (props) => {
            });
      }, []);
 
+     if (authorId) {
+        fetch('http://localhost:4000' + `/api/article/title/${authorId}`, {
+            method: "GET"
+        })
+           .then((response) => response.json())
+           .then((data) => {;
+                setUserTitles(JSON.parse(data));
+           })
+           .catch((err) => {
+              console.log(err.message);
+           });
+        }
 
     return (
         <div className="w-75 h-100 mx-auto">
@@ -77,12 +93,12 @@ const Blog = (props) => {
                                 {articleEdit &&
                                     <Button onClick={cancelEdit} className="me-1" variant="dark">Cancel</Button>}
                             </div>
-                            <ArticleList />
+                            <ArticleList titles={userTitles} />
                         </div>
                     </Col>}
                 <Col xs={artList ? 10 : 12} >
                     {articleEdit ?
-                        <ArticleEditor artData={artData}/> :
+                        <ArticleEditor createState={createState} artData={artData}/> :
                         <Article artData={artData}/>
                     }
 

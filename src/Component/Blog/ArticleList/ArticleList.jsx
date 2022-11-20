@@ -1,10 +1,19 @@
 import React from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 
-const ArticleList = () => {
+const ArticleList = (props) => {
+
+    const titleList = props.titles
+
+    const listJsx = titleList.map(item => 
+            <ListGroup.Item as="a" key={item.id} href={`/article/${item.id}`} variant="dark">
+                {item.title} 
+            </ListGroup.Item>
+        )
+
     return (
         <ListGroup  className='mt-2' >
-            <ListGroup.Item variant="dark">Cras justo odio</ListGroup.Item>
+            {listJsx}
         </ListGroup>
     );
 }
