@@ -12,7 +12,12 @@ import Button from 'react-bootstrap/Button';
 const Blog = (props) => {
     const [artList, setArtList] = useState(true)
     const [articleEdit, setArticleEdit] = useState(false)
-    const [artData, setArtData] = useState({})
+    const [artData, setArtData] = useState({
+        id: "",
+        authorId: "",
+        title: "",
+        article: ""
+    })
     const [noteData, setNoteData] = useState({})
     const [userTitles, setUserTitles] = useState([])
     const [createState, setCreateState] = useState(true)
@@ -36,7 +41,6 @@ const Blog = (props) => {
         setArticleEdit(false)
     }
 
-    const authorId = artData.author_id
     const articleId = props.articleId
 
     useEffect(() => {
@@ -45,7 +49,8 @@ const Blog = (props) => {
         })
            .then((response) => response.json())
            .then((data) => {
-                setArtData(JSON.parse(data));
+                const artData = JSON.parse(data)
+                setArtData(artData);
            })
            .catch((err) => {
               console.log(err.message);
@@ -61,18 +66,42 @@ const Blog = (props) => {
               console.log(err.message);
            });
      }, []);
+     
+     fetch('http://localhost:4000' + `/api/article/title/${1}`, {
+        method: "GET"
+    })
+       .then((response) => response.json())
+       .then((data) => {
+            setUserTitles(JSON.parse(data));
+       })
+       .catch((err) => {
+          console.log(err.message);
+       });
 
-     if (authorId) {
-        fetch('http://localhost:4000' + `/api/article/title/${authorId}`, {
-            method: "GET"
+
+
+        const artJosnBody = JSON.stringify({
+            id: !createState ? artData.id : null,
+            authorId: artData.authorId,
+            title: artData.title,
+            article: artData.oriArticle
         })
-           .then((response) => response.json())
-           .then((data) => {;
-                setUserTitles(JSON.parse(data));
-           })
-           .catch((err) => {
-              console.log(err.message);
-           });
+
+        const upsertArt = async () => {
+            try {
+                const requestOptions = {
+                    method: "PUT",
+                    headers: {"Content-Type": "application/json"},
+                    body: artJosnBody
+                }
+                const response = await fetch("http://localhost:4000" + `/api/article`, requestOptions)
+                console.log(response)
+                const artJsonData = await response.json()
+                console.log(artJsonData)
+                setArtData(artJsonData)
+            } catch {
+    
+            }
         }
 
     return (
@@ -82,13 +111,13 @@ const Blog = (props) => {
                     <Button onClick={hideArtList} variant="dark">Hide</Button> :
                     <Button onClick={displayArtList} variant="dark">Display</Button>
                 }
+                 <Button onClick={createArticle} className="me-1" variant="dark">Create</Button>
             </div>
             <Row>
                 {artList &&
                     <Col >
                         <div className="mt-5 ">
                             <div className="d-flex">
-                                <Button onClick={createArticle} className="me-1" variant="dark">Create</Button>
                                 <Button onClick={editArticle} className="me-1" variant="dark">Edit</Button>
                                 {articleEdit &&
                                     <Button onClick={cancelEdit} className="me-1" variant="dark">Cancel</Button>}
@@ -98,7 +127,7 @@ const Blog = (props) => {
                     </Col>}
                 <Col xs={artList ? 10 : 12} >
                     {articleEdit ?
-                        <ArticleEditor createState={createState} artData={artData}/> :
+                        <ArticleEditor setArtData={setArtData} artData={artData} cancelEdit={cancelEdit} upsertArt={upsertArt} createState={createState} /> :
                         <Article artData={artData}/>
                     }
 
