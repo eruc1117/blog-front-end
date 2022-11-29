@@ -12,7 +12,7 @@ const ArticleList = (props) => {
         )
 
     return (
-        <ListGroup  className='mt-2' >
+        <ListGroup  className='mt-2' numbered>
             {listJsx}
         </ListGroup>
     );

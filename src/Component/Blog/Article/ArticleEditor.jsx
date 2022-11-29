@@ -16,17 +16,6 @@ const ArticleEditor = (props) => {
     const setArtData = props.setArtData
     const artData = props.artData
 
-    const handleSaveArt = (e) => {
-      e.preventDefault();
-      cancelEdit()
-      upsertArt()
-    }
-    const handleCreateArt = (e) => {
-      e.preventDefault();
-      cancelEdit()
-      createtArt()
-    }
-
     const createtArt = async () => {
       try {
           const requestOptions = {
@@ -42,10 +31,23 @@ const ArticleEditor = (props) => {
           const response = await fetch("http://localhost:4000" + `/api/article`, requestOptions)
           const artJsonData = await response.json()
           setArtData(artJsonData)
-      } catch {
-
+      } catch (err) {
+        console.log(err)
       }
   }
+
+    const handleSaveArt = (e) => {
+      e.preventDefault();
+      cancelEdit()
+      upsertArt()
+    }
+    const handleCreateArt = (e) => {
+      e.preventDefault();
+      cancelEdit()
+      createtArt()
+    }
+
+
 
     return (
         <Form className='mt-5 bg-dark mx-auto w-100'>

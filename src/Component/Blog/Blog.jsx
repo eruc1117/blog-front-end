@@ -8,6 +8,7 @@ import ArticleEditor from "./Article/ArticleEditor";
 import ArticleList from "./ArticleList/ArticleList";
 import NodeLeft from "./Note/NoteLeft";
 import Button from 'react-bootstrap/Button';
+import { useCallback } from 'react';
 
 const Blog = (props) => {
     const [artList, setArtList] = useState(true)
@@ -42,8 +43,7 @@ const Blog = (props) => {
     }
 
     const articleId = props.articleId
-
-    useEffect(() => {
+    const loadBlogFunction = useCallback(() => {
         fetch('http://localhost:4000' + `/api/article/${articleId}`, {
             method: "GET"
         })
@@ -58,21 +58,30 @@ const Blog = (props) => {
         fetch('http://localhost:4000' + `/api/note/${articleId}`, {
             method: "GET"
         })
-           .then((response) => response.json())
+           .then((response) => 
+            response.json())
            .then((data) => {
-                setNoteData(JSON.parse(data));
+                const noteJsonData = JSON.parse(data)
+                setNoteData(noteJsonData);
            })
            .catch((err) => {
               console.log(err.message);
            });
+    }, [])
+    useEffect(() => {
+        loadBlogFunction()
      }, []);
      
      fetch('http://localhost:4000' + `/api/article/title/${1}`, {
         method: "GET"
     })
-       .then((response) => response.json())
-       .then((data) => {
-            setUserTitles(JSON.parse(data));
+    .then((response) => response.json())
+    .then((data) => {
+            let titleData = JSON.parse(data)
+            titleData.sort((a, b) => {
+                return Number(a.id) - Number(b.id)
+            })
+            setUserTitles(titleData);
        })
        .catch((err) => {
           console.log(err.message);
@@ -81,7 +90,7 @@ const Blog = (props) => {
 
 
         const artJosnBody = JSON.stringify({
-            id: !createState ? artData.id : null,
+            id: artData.id,
             authorId: artData.authorId,
             title: artData.title,
             article: artData.oriArticle
@@ -95,12 +104,23 @@ const Blog = (props) => {
                     body: artJosnBody
                 }
                 const response = await fetch("http://localhost:4000" + `/api/article`, requestOptions)
-                console.log(response)
                 const artJsonData = await response.json()
-                console.log(artJsonData)
                 setArtData(artJsonData)
-            } catch {
-    
+
+                const newTitles = []
+                for (let i = 0; i < [...userTitles].length; i++) {
+                    let item = [...userTitles][i]
+                    if(item.id === artJsonData.id) {
+                        item.title = artJsonData.title
+                    }
+                    newTitles.push(item)
+                }
+                newTitles.sort((a, b) => {
+                    return Number(a.id) - Number(b.id)
+                })
+                setUserTitles(newTitles)
+            } catch (err) {
+                console.log(err)
             }
         }
 
