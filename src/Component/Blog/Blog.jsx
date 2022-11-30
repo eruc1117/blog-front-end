@@ -67,25 +67,22 @@ const Blog = (props) => {
            .catch((err) => {
               console.log(err.message);
            });
+        fetch('http://localhost:4000' + `/api/article/title/${1}`, {
+            method: "GET"
+        })
+        .then((response) => response.json())
+        .then((data) => {
+                let titleData = JSON.parse(data)
+                setUserTitles(titleData);
+           })
+           .catch((err) => {
+              console.log(err.message);
+           });
     }, [])
     useEffect(() => {
         loadBlogFunction()
      }, []);
      
-     fetch('http://localhost:4000' + `/api/article/title/${1}`, {
-        method: "GET"
-    })
-    .then((response) => response.json())
-    .then((data) => {
-            let titleData = JSON.parse(data)
-            titleData.sort((a, b) => {
-                return Number(a.id) - Number(b.id)
-            })
-            setUserTitles(titleData);
-       })
-       .catch((err) => {
-          console.log(err.message);
-       });
 
 
 
@@ -115,9 +112,6 @@ const Blog = (props) => {
                     }
                     newTitles.push(item)
                 }
-                newTitles.sort((a, b) => {
-                    return Number(a.id) - Number(b.id)
-                })
                 setUserTitles(newTitles)
             } catch (err) {
                 console.log(err)
