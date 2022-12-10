@@ -27,6 +27,7 @@ const NoteLeft = (props) => {
     })
     const createNote = async () => {
         try {
+            console.log(jsonBody)
             const requestOptions = {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
